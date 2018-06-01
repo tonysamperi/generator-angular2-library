@@ -3,6 +3,11 @@
 
 [Yeoman](http://yeoman.io) generator to create a standalone [Angular](https://angular.io/) library in seconds.
 
+# IMPORTANT [TS]
+
+**There were some issues with deps versions, so I made some updates.
+Now the package works with NodeJS >= v6.14.2**
+
 If you want to create an Angular library with directives, services and/or pipes, then this generator is just what you need.
 
 This generator aligns with the [official Angular Package Format](https://goo.gl/AMOU5G) and automatically generates a [Flat ES Module](http://angularjs.blogspot.be/2017/03/angular-400-now-available.html), a UMD bundle, a single metadata.json and type definitions to make your library ready for AOT compilation by the consuming Angular application.
