@@ -37,7 +37,7 @@ This generator is built for Angular version 2 and above, hence the name generato
 
 ![generator-ng5-library-v12](https://cloud.githubusercontent.com/assets/1859381/25838669/89e03f04-3494-11e7-8a45-1daea0ecab1e.gif)
 
-First, install [Yeoman](http://yeoman.io) and generator-angular2-library using [npm](https://www.npmjs.com/) (assuming you already have [node.js](https://nodejs.org/) pre-installed).
+First, install [Yeoman](http://yeoman.io) and generator-ng5-library using [npm](https://www.npmjs.com/) (assuming you already have [node.js](https://nodejs.org/) pre-installed).
 
 ```bash
 $ npm install -g yo
@@ -54,7 +54,7 @@ $ cd angular-library-name
 and generate your new library:
 
 ```bash
-$ yo my-awesome-angular-lib
+$ yo ng5-library
 ```
 
 The generator will prompt you for:
