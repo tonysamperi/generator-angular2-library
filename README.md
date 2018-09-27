@@ -11,6 +11,8 @@ Improvements to the original
 * Handling of styles (scss) for **@Directives**.
 	The *inline-resources* promise will return an array styles will now be copied to the maching path in the *dist* folder. This is useful if you have a *library-theme.css* or *library-theme.scss* where you can import your directive styles. See tonysamperi/ngx-mat-lib for example.
 
+If you want to contribute, be sure to run `npm run test` before commiting or creating a pull request
+
 ## IMPORTANT
 
 **There were some issues with deps versions, so I made some updates.
@@ -550,6 +552,10 @@ $ npm run test
 MIT © [Tony Samperi](http://tonysamperi.github.io)
 
 ## Change log
+
+### v12.4.7
+- Fixed last quotes errors
+- Improved ReadMe (test instruction)
 
 ### v12.4.6
 - Switched to double quotes everywhere (solves travis build failing)
