@@ -39,7 +39,7 @@
     ],
     "quotes": [
       2,
-      "single"
+      "double"
     ],
     "keyword-spacing": 2,
     "space-before-function-paren": [

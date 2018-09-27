@@ -202,13 +202,13 @@ $ npm install sample-library # use the name you used to publish to npm
 and then importing your library in your Angular `AppModule` (or whatever module you wish to import your library into):
 
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
 // Import your library
-import { SampleModule } from 'sample-library';
+import { SampleModule } from "sample-library";
 
 @NgModule({
   declarations: [
@@ -239,13 +239,13 @@ Once your shared library is imported, you can use its components, directives and
 and if you need to access a service from your shared library, you can inject it using Dependency Injection:
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 // Import the shared service
-import { SampleService } from 'sample-library';
+import { SampleService } from "sample-library";
 
 @Component({
-  template: 'Injecting a service from the shared library'
+  template: "Injecting a service from the shared library"
 })
 export class HomeComponent {
 
@@ -316,13 +316,13 @@ To consume your library in a local application before you publish it to npm, you
 8. Import `SampleModule` in your Angular application:
 
   ```typescript
-  import { BrowserModule } from '@angular/platform-browser';
-  import { NgModule } from '@angular/core';
+  import { BrowserModule } from "@angular/platform-browser";
+  import { NgModule } from "@angular/core";
   
-  import { AppComponent } from './app.component';
+  import { AppComponent } from "./app.component";
   
   // Import your library
-  import { SampleModule } from 'sample-library';
+  import { SampleModule } from "sample-library";
   
   @NgModule({
     declarations: [
@@ -353,13 +353,13 @@ To consume your library in a local application before you publish it to npm, you
   and if you need to access a service from your shared library, you can inject it using Dependency Injection:
   
   ```typescript
-  import { Component } from '@angular/core';
+  import { Component } from "@angular/core";
   
   // Import the shared service
-  import { SampleService } from 'sample-library';
+  import { SampleService } from "sample-library";
   
   @Component({
-    template: 'Injecting a service from the shared library'
+    template: "Injecting a service from the shared library"
   })
   export class HomeComponent {
   
@@ -454,10 +454,10 @@ then reference it in your component's `styleUrls` in `sample.component.ts` accor
 
 ```typescript
 @Component({
-  selector: 'sample-component',
+  selector: "sample-component",
   template: `<h1>Sample component</h1>`,
   styleUrls: [
-    'sample.component.scss'
+    "sample.component.scss"
   ]
 })
 ```
@@ -550,6 +550,11 @@ $ npm run test
 MIT © [Tony Samperi](http://tonysamperi.github.io)
 
 ## Change log
+
+### v12.4.6
+- Switched to double quotes everywhere (solves travis build failing)
+- Improved linting
+- Indentation improved (PhpStorm)
 
 ### v12.4.5
 - New feature to copy directive styles into the dist (inline-resources.js + gulpfile.js)
