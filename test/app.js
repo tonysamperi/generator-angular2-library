@@ -3,13 +3,13 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('generator-angular-2-library:app', function () {
+describe('generator-angular-5-library:app', function () {
 
   before(function (done) {
 
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({})
-      .withPrompts({libraryName: 'angular2-library-name'})
+      .withPrompts({libraryName: 'angular5-library-name'})
       .on('end', done);
 
   });

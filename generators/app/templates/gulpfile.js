@@ -38,9 +38,19 @@ gulp.task('copy:source', function () {
  * 3. Inline template (.html) and style (.css) files into the the component .ts files.
  *    We do this on the /.tmp folder to avoid editing the original /src files
  */
-gulp.task('inline-resources', function () {
-  return Promise.resolve()
-    .then(() => inlineResources(tmpFolder));
+gulp.task('inline-resources', function (cb) {
+
+	inlineResources(tmpFolder).then(result => {
+		const directiveStyles = result.filter(value => !!value);
+        directiveStyles.forEach((srcFolder) => {
+            // removes fileName and keeps folder
+            const directiveDest = path.join(distFolder, srcFolder.replace(/([\\\/].*[\\\/])(.*?)$/g, "$1"));
+            
+			gulp.src(path.join(tmpFolder, srcFolder))
+			.pipe(gulp.dest(directiveDest));
+        });
+		cb();
+	});
 });
 
 
@@ -50,9 +60,9 @@ gulp.task('inline-resources', function () {
  *
  *    As of Angular 5, ngc accepts an array and no longer returns a promise.
  */
-gulp.task('ngc', function () {
+gulp.task('ngc', function (cb) {
   ngc(['--project', `${tmpFolder}/tsconfig.es5.json`]);
-  return Promise.resolve()
+  cb();
 });
 
 /**

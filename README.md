@@ -1,12 +1,20 @@
-![generator-ng5-library](https://cloud.githubusercontent.com/assets/1859381/24447242/901c8a1a-1470-11e7-8b55-2484b7825722.jpg)
+![generator-ng5-library](https://user-images.githubusercontent.com/5957244/46132460-571bca00-c23e-11e8-9d9c-1b339d8c6358.jpg)
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 [Yeoman](http://yeoman.io) generator to create a standalone [Angular](https://angular.io/) library in seconds.
 
-# IMPORTANT [TS]
+## Introduction
+
+This project is derived from the generator-angular2-library by jvandemo
+Improvements to the original
+* Added support for double quotes in `templateUrl` and `styleUrls`
+* Handling of styles (scss) for **@Directives**.
+	The *inline-resources* promise will return an array styles will now be copied to the maching path in the *dist* folder. This is useful if you have a *library-theme.css* or *library-theme.scss* where you can import your directive styles. See tonysamperi/ngx-mat-lib for example.
+
+## IMPORTANT
 
 **There were some issues with deps versions, so I made some updates.
-Now the package works with NodeJS >= v6.14.2**
+Now the package will now work with NodeJS >= v6.14.2**
 
 If you want to create an Angular library with directives, services and/or pipes, then this generator is just what you need.
 
@@ -525,24 +533,6 @@ In the consuming Angular application
 
 To see a fully documented example, check out [this guide](./guides/import_non_angular_libraries.md).
 
-#### How can I upgrade my library to support Angular 5
-
-Version 12 or later of this generator supports Angular 5.
-
-If you have an existing library that was generated with an earlier version of this generator:
-
-1. update the versions of the Angular packages in `package.json` to Angular 5 ([example](https://github.com/jvandemo/generator-angular2-library/blob/master/generators/app/templates/_package.json))
-2. replace the `ngc` script in your `gulpfile.js` with:
-
-```
-gulp.task('ngc', function () {
-  ngc([ '--project', `${tmpFolder}/tsconfig.es5.json` ]);
-  return Promise.resolve()
-});
-```
-
-See [#230](https://github.com/jvandemo/generator-angular2-library/issues/230) for more information.
-
 ## Issues
 
 Please report bugs and issues [here](https://github.com/tonysamperi/generator-ng5-library/issues).
@@ -561,273 +551,34 @@ MIT © [Tony Samperi](http://tonysamperi.github.io)
 
 ## Change log
 
-### v12.4.2
+### v12.4.5
+- New feature to copy directive styles into the dist (inline-resources.js + gulpfile.js)
+- Test.js updated
+- ReadMe upadated
+- Changelog updated (removed old stuff)
 
+### v12.4.4
+- Improved *templateUrl* regex in inline-resources.js
+
+### v12.4.3
+- Fixed package deps
+- Removed NodeJS version prior to 6 (travis)
+- Added NodeJS 8 and 10 (travis)
+- Regexs refactored
+- Removed package-lock
+- ReadMe updated
+
+### v12.4.2
 - Added support for double quotes in 'templateUrl'
 
-### v12.4.1
+### v12.4.1 and below
+- See github.com/jvandemo/generator-angular2-library for info
 
-- Fix tslint rule [#286](https://github.com/jvandemo/generator-angular2-library/pull/286) (Credits to [Mathias Wittlock](https://github.com/wittlock))
-
-### v12.4.0
-
-- Add prompt to ask for scope [#283](https://github.com/jvandemo/generator-angular2-library/pull/283) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-
-### v12.3.0
-
-- Update rollup options [#270](https://github.com/jvandemo/generator-angular2-library/pull/270) (Credits to [Zura Gabievi](https://github.com/zgabievi))
-- Fix mkdir error [#269](https://github.com/jvandemo/generator-angular2-library/pull/269) (Credits to [Louis Amstutz](https://github.com/lamstutz))
-
-### v12.2.1
-
-- Update system.js config to use single quotes
-
-### v12.2.0
-
-- Added default extension to playground system.js config to fix [#146](https://github.com/jvandemo/generator-angular2-library/pull/146)
-
-### v12.1.0
-
-- Fixed issue with deleting .tmp folder after failed build (See [#261](https://github.com/jvandemo/generator-angular2-library/pull/261)) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-- Updated package_jest.json (See [#267](https://github.com/jvandemo/generator-angular2-library/pull/267)) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-
-### v12.0.0
-
-- Updated packages to Angular 5
-- Updated ngc gulp script (See [#230](https://github.com/jvandemo/generator-angular2-library/issues/230)) (Credits to [Filip Lauc](https://github.com/flauc))
-
-### v11.4.0
-
-- Updated rollup and gulp-rollup configuration (See [#190](https://github.com/jvandemo/generator-angular2-library/pull/190)) (Credits to [Daniel Geri](https://github.com/danielgeri))
-
-### v11.3.0
-
-- Added playground (See [#146](https://github.com/jvandemo/generator-angular2-library/pull/146)) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-
-### v11.2.0
-
-- Added guide on how depend on third party library (See [#172](https://github.com/jvandemo/generator-angular2-library/pull/172)) (Credits to [Ka Tam](https://github.com/kktam))
-
-### v11.1.0
-
-- Added `main` and `jsnext:main` properties to package.json
-
-### v11.0.3
-
-- Added FAQ on how to add third party library
-- Updated jest support (See [#91](https://github.com/jvandemo/generator-angular2-library/pull/158)) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-
-### v11.0.2
-
-- Fixed package.json for [Jest](https://facebook.github.io/jest/) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-
-### v11.0.1
-
-- Updated `styleUrls` to fix [#140](https://github.com/jvandemo/generator-angular2-library/issues/140)
-
-### v11.0.0
-
-- Added support for [Jest](https://facebook.github.io/jest/) (Credits to [Fabrizio Fortunato](https://github.com/izifortune))
-- Updated Compodoc (Credits to [Artem Kuznetsov](https://github.com/artemsky))
-
-### v10.2.2
-
-- Avoid deletion of dist directory to prevent npm link errors (See [#91](https://github.com/jvandemo/generator-angular2-library/issues/91)) (Credits to [Filipe Silva](https://github.com/filipesilva) and [Brenden Niedermeyer](https://github.com/bniedermeyer))
-
-### v10.2.1
-
-- Allow real files in rollup to fix [#105](https://github.com/jvandemo/generator-angular2-library/issues/105)
-
-### v10.2.0
-
-- Add support for scss imports ([#100](https://github.com/jvandemo/generator-angular2-library/pull/100))(Credits to [rtrompier](https://github.com/rtrompier))
-
-### v10.1.1
-
-- Fix README
-
-### v10.1.0
-
-- Copy README to dist directory ([#85](https://github.com/jvandemo/generator-angular2-library/pull/85)) (Credits to [David](https://github.com/dbfannin))
-
-### v10.0.0
-
-- Added support for generating UMD bundle
-
-### v9.3.0
-
-- Added support for .scss files (Credits to [Thomas Deblock](https://github.com/deblockt))
-
-### v9.2.0
-
-- Added convenience scripts for generating documentation
-
-### v9.1.0
-
-- Added compodoc for generating documentation ([#76](https://github.com/jvandemo/generator-angular2-library/pull/76))
-- Removed comments from TypeScript config files to allow JSON validity checks
-
-### v9.0.0
-
-- Added Gulp for support on Mac, Linux and Windows (Credits to [Carlos Roso](https://github.com/caroso1222))
-- Added template inlining (Credits to [Filipe Silva](https://github.com/filipesilva))
-- Added style inlining (Credits to [Filipe Silva](https://github.com/filipesilva))
-
-### v8.2.1
-
-- Updated TypeScript files in gitignore
-
-### v8.2.0
-
-- Added build:watch script
-- Added dist folder to gitignore
-
-### v8.1.0
-
-- Remove prepublish script
-
-### v8.0.0
-
-- Update build process
-- Add support for AOT compilation
-
-### v7.0.0
-
-- Update to Angular 4
-
-### v6.0.0
-
-- Update to Yeoman 1.x
-
-### v5.6.0
-
-- Ignore files generated by ngc in .gitignore
-
-### v5.5.2
-
-- Remove obsolete files in package.json
-
-### v5.5.1
-
-- Add README.md to package.json so NPM registry can display it
-
-### v5.5.0
-
-- Update devDependencies
-
-### v5.4.0
-
-- Update to latest tslint and codelyzer
-
-### v5.3.0
-
-- Update TypeScript version to fix #41
-
-### v5.2.1
-
-- Fix eslint errors
-- Remove duplicate dependency
-
-### v5.2.0
-
-- Suggest better default library name
-
-### v5.1.0
-
-- Add support for AOT compilation
-- Update Angular 2 references to just Angular
-
-### v5.0.0
-
-- Replace typings with @types (#29)
-
-### v4.0.0
-
-- Remove default keyword when exporting module to fix #23
-
-### v3.0.4
-
-- Updated version of Codelyzer
-- Updated selector of sample component to kebab case to fix #21
-
-### v3.0.3
-
-- Fixed unit tests
-
-### v3.0.2
-
-- Fixed `README.md` example code
-
-### v3.0.1
-
-- Fixed `tsconfig.json` files
-
-### v3.0.0
-
-- Added support for `NgModule`
-
-### v2.2.0
-
-- Updated dependencies in package.json to Angular 2 final
-
-### v2.1.0
-
-- Updated templates to Angular 2.0.0 RC3 syntax
-
-### v2.0.0
-
-- Updated with file structure using `src` and `dist` directory
-
-### v1.1.1
-
-- Updated templates to Angular 2.0.0 RC1 syntax
-
-### v1.1.0
-
-- Added codelyzer support
-- Added tslint support
-- Added typings support
-
-### v1.0.0
-
-- BREAKING CHANGE: Updated to support [Angular 2.0.0-rc.1](https://github.com/angular/angular/blob/master/CHANGELOG.md#200-rc1-2016-05-03)
-
-### v0.6.0
-
-- Updated dependency versions
-
-### v0.5.0
-
-- Added `browser.d.ts` to files in `tsconfig.json` instead of using tripleslash (see #9)
-
-### v0.4.0
-
-- Added reference to Angular typings
-
-### v0.3.1
-
-- Removed explicit RxJS dependency
-
-### v0.3.0
-
-- Updated to Angular 2 beta
-
-### v0.2.0
-
-- Added documentation
-- Added support for `PROVIDERS`, `DIRECTIVES` and `PIPES`
-
-### v0.1.0
-
-- Added documentation
-- Added boilerplate scaffolding
-- Initial version
-
-[npm-image]: https://badge.fury.io/js/generator-angular2-library.svg
+[npm-image]: https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=12.4.5&x2=0
 [npm-url]: https://npmjs.org/package/generator-angular2-library
-[travis-image]: https://travis-ci.org/jvandemo/generator-angular2-library.svg?branch=master
-[travis-url]: https://travis-ci.org/jvandemo/generator-angular2-library
-[daviddm-image]: https://david-dm.org/jvandemo/generator-angular2-library.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/jvandemo/generator-angular2-library
-[coveralls-image]: https://coveralls.io/repos/jvandemo/generator-angular2-library/badge.svg
-[coveralls-url]: https://coveralls.io/r/jvandemo/generator-angular2-library
+[travis-image]: https://api.travis-ci.org/tonysamperi/generator-ng5-library.svg?branch=master
+[travis-url]: https://travis-ci.org/tonysamperi/generator-ng5-library
+[daviddm-image]: https://david-dm.org/tonysamperi/generator-ng5-library.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/tonysamperi/generator-ng5-library
+[coveralls-image]: https://coveralls.io/repos/tonysamperi/generator-ng5-library/badge.svg
+[coveralls-url]: https://coveralls.io/github/tonysamperi/generator-ng5-library

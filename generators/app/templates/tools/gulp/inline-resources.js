@@ -1,31 +1,31 @@
-/* eslint-disable */
 // https://github.com/filipesilva/angular-quickstart-lib/blob/master/inline-resources.js
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
-const sass = require('node-sass');
-const tildeImporter = require('node-sass-tilde-importer');
-
+const fs = require("fs");
+const path = require("path");
+const glob = require("glob");
+const sass = require("node-sass");
+const tildeImporter = require("node-sass-tilde-importer");
+const directiveSlug = "@Directive";
+const tsFolderRegex = /([\/\\])(ts)([\/\\])/g;
 /**
  * Simple Promiseify function that takes a Node API and return a version that supports promises.
  * We use promises instead of synchronized functions to make the process less I/O bound and
  * faster. It also simplifies the code.
  */
 function promiseify(fn) {
-  return function () {
-    const args = [].slice.call(arguments, 0);
-    return new Promise((resolve, reject) => {
-      fn.apply(this, args.concat([function (err, value) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(value);
-        }
-      }]));
-    });
-  };
+    return function () {
+        const args = [].slice.call(arguments, 0);
+        return new Promise((resolve, reject) => {
+            fn.apply(this, args.concat([function (err, value) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(value);
+                }
+            }]));
+        });
+    };
 }
 
 const readFile = promiseify(fs.readFile);
@@ -36,23 +36,32 @@ const writeFile = promiseify(fs.writeFile);
  * @param projectPath {string} Path to the project.
  */
 function inlineResources(projectPath) {
+    // Match only TypeScript files in projectPath.
+    const files = glob.sync("**/*.ts", {cwd: projectPath});
+    // For each file, inline the templates and styles under it and write the new file.
+    return Promise.all(
+        files.map(filePath => {
+            const fullFilePath = path.join(projectPath, filePath);
+            return readFile(fullFilePath, "utf-8").then(content => {
+                return inlineResourcesFromString(content, url => {
+                    // Resolve the template url.
+                    return path.join(path.dirname(fullFilePath), url);
+                })
+            })
+            .then(content => {
+                let result = writeFile(fullFilePath, content);
+                if (content.indexOf(directiveSlug) > -1) {
+                    let directiveStylePath = filePath.replace(".ts", ".scss");
+                    directiveStylePath = directiveStylePath.replace(tsFolderRegex, "$1scss$3");
+                    result = directiveStylePath;
+                }
+                return result;
+            })
+            .catch(err => {
+                console.error("An error occured: ", err);
+            });
 
-  // Match only TypeScript files in projectPath.
-  const files = glob.sync('**/*.ts', {cwd: projectPath});
-
-  // For each file, inline the templates and styles under it and write the new file.
-  return Promise.all(files.map(filePath => {
-    const fullFilePath = path.join(projectPath, filePath);
-    return readFile(fullFilePath, 'utf-8')
-      .then(content => inlineResourcesFromString(content, url => {
-        // Resolve the template url.
-        return path.join(path.dirname(fullFilePath), url);
-      }))
-      .then(content => writeFile(fullFilePath, content))
-      .catch(err => {
-        console.error('An error occured: ', err);
-      });
-  }));
+        }));
 }
 
 /**
@@ -62,12 +71,12 @@ function inlineResources(projectPath) {
  * @returns {string} The content with resources inlined.
  */
 function inlineResourcesFromString(content, urlResolver) {
-  // Curry through the inlining functions.
-  return [
-    inlineTemplate,
-    inlineStyle,
-    removeModuleId
-  ].reduce((content, fn) => fn(content, urlResolver), content);
+    // Curry through the inlining functions.
+    return [
+        inlineTemplate,
+        inlineStyle,
+        removeModuleId
+    ].reduce((content, fn) => fn(content, urlResolver), content);
 }
 
 /**
@@ -78,14 +87,14 @@ function inlineResourcesFromString(content, urlResolver) {
  * @return {string} The content with all templates inlined.
  */
 function inlineTemplate(content, urlResolver) {
-  return content.replace(/templateUrl:\s*(['"])([^\1]+?\.html)\1/g, function (fullMatch, quote, templateUrl) {
-    const templateFile = urlResolver(templateUrl);
-    const templateContent = fs.readFileSync(templateFile, 'utf-8');
-    const shortenedTemplate = templateContent
-      .replace(/([\n\r]\s*)+/gm, ' ')
-      .replace(/"/g, '\\"');
-    return `template: "${shortenedTemplate}"`;
-  });
+    return content.replace(/templateUrl:\s*(['"])([^\1]+?\.html)\1/g, function (fullMatch, quote, templateUrl) {
+        const templateFile = urlResolver(templateUrl);
+        const templateContent = fs.readFileSync(templateFile, 'utf-8');
+        const shortenedTemplate = templateContent
+        .replace(/([\n\r]\s*)+/gm, ' ')
+        .replace(/"/g, '\\"');
+        return `template: "${shortenedTemplate}"`;
+    });
 }
 
 
@@ -97,21 +106,21 @@ function inlineTemplate(content, urlResolver) {
  * @return {string} The content with all styles inlined.
  */
 function inlineStyle(content, urlResolver) {
-  return content.replace(/styleUrls\s*:\s*(\[[\s\S]*?\])/gm, function (m, styleUrls) {
-    const urls = eval(styleUrls);
-    return 'styles: ['
-      + urls.map(styleUrl => {
-        const styleFile = urlResolver(styleUrl);
-        const originContent = fs.readFileSync(styleFile, 'utf-8');
-        const styleContent = styleFile.endsWith('.scss') ? buildSass(originContent, styleFile) : originContent;
-        const shortenedStyle = styleContent
-          .replace(/([\n\r]\s*)+/gm, ' ')
-          .replace(/"/g, '\\"');
-        return `"${shortenedStyle}"`;
-      })
-        .join(',\n')
-      + ']';
-  });
+    return content.replace(/styleUrls\s*:\s*(\[[\s\S]*?\])/gm, function (m, styleUrls) {
+        const urls = eval(styleUrls);
+        return 'styles: ['
+            + urls.map(styleUrl => {
+                const styleFile = urlResolver(styleUrl);
+                const originContent = fs.readFileSync(styleFile, 'utf-8');
+                const styleContent = styleFile.endsWith('.scss') ? buildSass(originContent, styleFile) : originContent;
+                const shortenedStyle = styleContent
+                .replace(/([\n\r]\s*)+/gm, ' ')
+                .replace(/"/g, '\\"');
+                return `"${shortenedStyle}"`;
+            })
+            .join(',\n')
+            + ']';
+    });
 }
 
 /**
@@ -121,20 +130,20 @@ function inlineStyle(content, urlResolver) {
  * @return {string} the generated css, empty string if error occured
  */
 function buildSass(content, sourceFile) {
-  try {
-    const result = sass.renderSync({
-      data: content,
-      file: sourceFile,
-      importer: tildeImporter
-    });
-    return result.css.toString()
-  } catch (e) {
-    console.error('\x1b[41m');
-    console.error('at ' + sourceFile + ':' + e.line + ":" + e.column);
-    console.error(e.formatted);
-    console.error('\x1b[0m');
-    return "";
-  }
+    try {
+        const result = sass.renderSync({
+            data: content,
+            file: sourceFile,
+            importer: tildeImporter
+        });
+        return result.css.toString()
+    } catch (e) {
+        console.error('\x1b[41m');
+        console.error('at ' + sourceFile + ':' + e.line + ":" + e.column);
+        console.error(e.formatted);
+        console.error('\x1b[0m');
+        return "";
+    }
 }
 
 /**
@@ -143,7 +152,7 @@ function buildSass(content, sourceFile) {
  * @returns {string} The content with all moduleId: mentions removed.
  */
 function removeModuleId(content) {
-  return content.replace(/\s*moduleId:\s*module\.id\s*,?\s*/gm, '');
+    return content.replace(/\s*moduleId:\s*module\.id\s*,?\s*/gm, '');
 }
 
 module.exports = inlineResources;
@@ -151,6 +160,6 @@ module.exports.inlineResourcesFromString = inlineResourcesFromString;
 
 // Run inlineResources if module is being called directly from the CLI with arguments.
 if (require.main === module && process.argv.length > 2) {
-  console.log('Inlining resources from project:', process.argv[2]);
-  return inlineResources(process.argv[2]);
+    console.log('Inlining resources from project:', process.argv[2]);
+    return inlineResources(process.argv[2]);
 }
