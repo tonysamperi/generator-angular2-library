@@ -585,7 +585,7 @@ MIT © [Tony Samperi](http://tonysamperi.github.io)
 ### v12.4.1 and below
 - See github.com/jvandemo/generator-angular2-library for info
 
-[npm-image]: https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=12.4.5&x2=0
+[npm-image]: https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=12.4.7&x2=0
 [npm-url]: https://npmjs.org/package/generator-ng5-library
 [travis-image]: https://api.travis-ci.org/tonysamperi/generator-ngx-library.svg?branch=master
 [travis-url]: https://travis-ci.org/tonysamperi/generator-ngx-library
