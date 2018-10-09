@@ -1,4 +1,4 @@
-![generator-ng5-library](https://user-images.githubusercontent.com/5957244/46132460-571bca00-c23e-11e8-9d9c-1b339d8c6358.jpg)
+![generator-ngx-library](https://user-images.githubusercontent.com/5957244/46132460-571bca00-c23e-11e8-9d9c-1b339d8c6358.jpg)
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 [Yeoman](http://yeoman.io) generator to create a standalone [Angular](https://angular.io/) library in seconds.
@@ -586,10 +586,10 @@ MIT © [Tony Samperi](http://tonysamperi.github.io)
 - See github.com/jvandemo/generator-angular2-library for info
 
 [npm-image]: https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=12.4.5&x2=0
-[npm-url]: https://npmjs.org/package/generator-angular2-library
-[travis-image]: https://api.travis-ci.org/tonysamperi/generator-ng5-library.svg?branch=master
-[travis-url]: https://travis-ci.org/tonysamperi/generator-ng5-library
-[daviddm-image]: https://david-dm.org/tonysamperi/generator-ng5-library.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/tonysamperi/generator-ng5-library
-[coveralls-image]: https://coveralls.io/repos/tonysamperi/generator-ng5-library/badge.svg
-[coveralls-url]: https://coveralls.io/github/tonysamperi/generator-ng5-library
+[npm-url]: https://npmjs.org/package/generator-ng5-library
+[travis-image]: https://api.travis-ci.org/tonysamperi/generator-ngx-library.svg?branch=master
+[travis-url]: https://travis-ci.org/tonysamperi/generator-ngx-library
+[daviddm-image]: https://david-dm.org/tonysamperi/generator-ngx-library.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/tonysamperi/generator-ngx-library
+[coveralls-image]: https://coveralls.io/repos/tonysamperi/generator-ngx-library/badge.svg
+[coveralls-url]: https://coveralls.io/github/tonysamperi/generator-ngx-library
