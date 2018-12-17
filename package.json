@@ -1,6 +1,6 @@
 {
   "name": "generator-ng5-library",
-  "version": "12.4.7",
+  "version": "12.4.8",
   "description": "Generator to create an Angular 5+ library",
   "homepage": "https://github.com/tonysamperi/generator-ng5-library",
   "author": {
@@ -26,12 +26,9 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-coveralls": "^0.1.4",
     "gulp-eslint": "^2.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.4",
     "gulp-mocha": "^2.2.0",
-    "gulp-nsp": "^3.0.1",
     "gulp-plumber": "^1.1.0",
     "yeoman-assert": "^3.1.1"
   },
