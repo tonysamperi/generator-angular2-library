@@ -37,5 +37,5 @@ gulp.task("test", ["pre-test"], function (cb) {
 });
 
 
-gulp.task("prepublish", ["test", "audit"]);
-gulp.task("default", ["test", "audit"]);
+gulp.task("prepublish", ["test"]);
+gulp.task("default", ["test"]);
